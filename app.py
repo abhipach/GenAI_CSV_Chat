@@ -10,7 +10,8 @@ from langchain.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
 import tempfile
-from langchain.prompts import PromptTemplate
+from langchain.prompts import PromptTemplate ,ChatMessagePromptTemplate , HumanMessagePromptTemplate , MessagesPlaceholder
+
 
 load_dotenv()
 os.getenv("GOOGLE_API_KEY")
