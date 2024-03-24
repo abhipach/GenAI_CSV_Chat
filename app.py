@@ -10,7 +10,7 @@ from langchain.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
 import tempfile
-from langchain.prompts import PromptTemplate ,ChatMessagePromptTemplate ,SystemMessagePromptTemplate, HumanMessagePromptTemplate , MessagesPlaceholder
+from langchain.prompts import PromptTemplate ,ChatPromptTemplate ,ChatMessagePromptTemplate ,SystemMessagePromptTemplate, HumanMessagePromptTemplate , MessagesPlaceholder
 
 
 load_dotenv()
