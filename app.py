@@ -31,7 +31,7 @@ if uploaded_file:
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectors = FAISS.from_documents(data, embeddings)
     general_system_template = r""" 
-    Given a specific context, please give a short answer to the question, covering the required advices in general and then provided answer on the basis of below Question and Answers. 
+    You are a Bank ChatBot and Please answer on the basis of provided data.
      ----
     {context}
     ----
