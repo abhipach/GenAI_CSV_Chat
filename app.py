@@ -29,7 +29,7 @@ if uploaded_file:
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectors = FAISS.from_documents(data, embeddings)
-    system_instruction = "The assistant should provide answer on the basis of provided data."
+    system_instruction = "The assistant should provide answer on the basis of provided data and questions and answers present in the template."
 
     # Define your template with the system instruction
     template = (
