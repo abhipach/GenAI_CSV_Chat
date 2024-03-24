@@ -28,10 +28,20 @@ if uploaded_file:
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectors = FAISS.from_documents(data, embeddings)
+    prompt_template = """
+    Answer the question as detailed as possible from the provided context, make sure to provide all the details, if the answer is not in
+    provided context just say, "answer is not available in the context", don't provide the wrong answer\n\n
+    Context:\n ?\n
+    Question: \n\n
+
+    Answer:
+    """
+    
 
     chain = ConversationalRetrievalChain.from_llm(llm=ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3,
                                                                            convert_system_message_to_human=True),
-                                                  retriever=vectors.as_retriever())
+                                                  retriever=vectors.as_retriever(),
+                                                  condense_question_prompt=PromptTemplate.from_template(prompt_template))
     st.header("Customer Support ChatBot")
 
     def conversational_chat(query):
