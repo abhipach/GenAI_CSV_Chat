@@ -29,25 +29,23 @@ if uploaded_file:
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectors = FAISS.from_documents(data, embeddings)
-    system_instruction = "The assistant should provide answer on the basis of provided data and questions and answers present in the template."
-
-    # Define your template with the system instruction
-    template = (
-        f"{system_instruction} "
-        "Combine the chat history and follow up question into "
-        "a standalone question. Chat History: {chat_history}"
-        "Follow up question: {question}"
-        "Question: How is your tummy"
-        "Answer : My tummy is nt good"
-    )
-
-    # Create the prompt template
-    condense_question_prompt = PromptTemplate.from_template(template)
+    general_system_template = r""" 
+    Given a specific context, please give a short answer to the question, covering the required advices in general and then provided answer on the basis of below Question and Answers. 
+     ----
+    {context}
+    ----
+    """
+    general_user_template = "Question:```{question}```"
+    messages = [
+            SystemMessagePromptTemplate.from_template(general_system_template),
+            HumanMessagePromptTemplate.from_template(general_user_template)
+            ]
+    qa_prompt = ChatPromptTemplate.from_messages( messages )
 
     chain = ConversationalRetrievalChain.from_llm(llm=ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3,
                                                                            convert_system_message_to_human=True),
                                                   retriever=vectors.as_retriever(),
-                                                  condense_question_prompt=condense_question_prompt)
+                                                  combine_docs_chain_kwargs={'prompt': qa_prompt})
     st.header("Customer Support ChatBot")
 
     def conversational_chat(query):
