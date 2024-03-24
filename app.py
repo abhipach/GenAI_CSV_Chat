@@ -20,7 +20,6 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type="csv")
 
-if uploaded_file:
     with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
         tmp_file.write(uploaded_file.getvalue())
         tmp_file_path = tmp_file.name
