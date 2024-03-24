@@ -30,23 +30,11 @@ if uploaded_file:
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectors = FAISS.from_documents(data, embeddings)
-    general_system_template = r""" 
-    You are a Bank ChatBot and Please answer on the basis of provided data.
-     ----
-    {context}
-    ----
-    """
-    general_user_template = "Question:```{question}```"
-    messages = [
-            SystemMessagePromptTemplate.from_template(general_system_template),
-            HumanMessagePromptTemplate.from_template(general_user_template)
-            ]
-    qa_prompt = ChatPromptTemplate.from_messages( messages )
+   
 
     chain = ConversationalRetrievalChain.from_llm(llm=ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3,
                                                                            convert_system_message_to_human=True),
-                                                  retriever=vectors.as_retriever(),
-                                                  combine_docs_chain_kwargs={'prompt': qa_prompt})
+                                                  retriever=vectors.as_retriever())
     st.header("Customer Support ChatBot")
 
     def conversational_chat(query):
