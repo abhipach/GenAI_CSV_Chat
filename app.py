@@ -29,7 +29,7 @@ if uploaded_file:
 
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     vectors = FAISS.from_documents(data, embeddings)
-    system_instruction = "The assistant should provide detailed explanations."
+    system_instruction = "The assistant should provide answer on the basis of provided data."
 
     # Define your template with the system instruction
     template = (
@@ -37,6 +37,8 @@ if uploaded_file:
         "Combine the chat history and follow up question into "
         "a standalone question. Chat History: {chat_history}"
         "Follow up question: {question}"
+        "Question: How is your tummy"
+        "Answer : My tummy is nt good"
     )
 
     # Create the prompt template
