@@ -20,11 +20,8 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type="csv")
 
-with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-    tmp_file.write(uploaded_file.getvalue())
-    tmp_file_path = tmp_file.name
 
-loader = CSVLoader(file_path=tmp_file_path, encoding="utf-8")
+loader = CSVLoader(file_path="abcbank_data.csv", encoding="utf-8")
 data = loader.load()
 
 embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
