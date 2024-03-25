@@ -21,7 +21,7 @@ def welcome_message():
     return f"Hi, {username}! Welcome to our Customer Support ChatBot for payments and banking! 🏦💳\n\nHow can we assist you today? Whether you have questions about transactions, account balances, or any other banking inquiries, feel free to ask. We're here to help you with any payment-related or banking-related concerns you may have.\n\nSimply type your query in the chatbox below, and we'll provide you with the assistance you need.\n\nLet's get started! 🚀" if username else "Welcome!"
 
 # Hardcoded file path for the CSV file
-csv_file_path = "banking payments FAQ.csv"
+csv_file_path = "abcbank_data.csv"
 
 loader = CSVLoader(file_path=csv_file_path, encoding="utf-8")
 data = loader.load()
